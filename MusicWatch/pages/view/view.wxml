@@ -1,0 +1,36 @@
+<!--pages/view/view.wxml-->
+<view class='pageView'>
+
+  <view class='pageViewList'>
+    <!-- 歌曲歌名和歌手名 -->
+    <view class='songDetails'>
+      <text>{{poster.songName}}</text>
+      <text class='singerName'>{{poster.singer}}</text>
+    </view>
+    <!-- 歌曲图片 -->
+    <view class='audioPicture' hidden='{{condition}}' bindtap='showHidden'>
+      <image src='{{poster.songImg}}' mode='scaleToFill' class='{{animationImg?"audioPictureAnimation":""}}'></image>
+    </view>
+    <!-- 歌曲歌词 -->
+    <scroll-view scroll-y='true' scroll-top='{{marginTop}}' scroll-with-animation='true' bindtap='showHidden' hidden='{{conditionAudio}}'>
+      <view class='contentText' id='srcollView'>
+           <block wx:for='{{songLyric}}' wx:key='{{index}}'>
+              <view class="{{currentIndex == index ? 'currentTime' : ''}}">{{item}}</view>
+            </block>
+       </view>
+    </scroll-view>
+  </view>
+
+  <view class='audioControls'>
+    <view>{{showTimeMin}}</view>
+    <!-- 歌曲进度条 -->
+      <slider bindchange='sliderChange' value='{{audioTime}}' block-size='12'/>
+    <view>{{showTimeMax}}</view>
+  </view>
+  <!-- 歌曲按钮，开始/上下首 -->
+  <view class='bottom'>
+    <image src='/pages/assets/backward.png' class='bottomLeft' bindtap='songSwitch' data-songSwitch='-1'></image>
+    <image src='{{iconImg}}' class='bottomIcon' bindtap='songStartStop'></image>
+    <image src='/pages/assets/forward.png' class='bottomLeft' bindtap='songSwitch' data-songSwitch='+1'></image>
+  </view>
+</view>
